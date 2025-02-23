@@ -8,12 +8,7 @@ import movingTypesCheck from '@/constants/movingTypeCheckCard';
 import type { MovingTypeCheckCardProps } from '@/interfaces/Card/MovingTypeCheckCardInterface';
 import { ButtonWrapper } from '../common/headless/Button';
 
-export default function MovingTypeCheckCard({
-  setMovingType,
-  setIsMovingType,
-  initialMovingType,
-  setViewMovingType,
-}: MovingTypeCheckCardProps) {
+export default function MovingTypeCheckCard({ setMovingType, setIsMovingType, initialMovingType }: MovingTypeCheckCardProps) {
   const [selectedMovingType, setSelectedMovingType] = useState<string>(initialMovingType);
 
   useEffect(() => {
@@ -22,11 +17,10 @@ export default function MovingTypeCheckCard({
 
       const matchingType = movingTypesCheck.find(movingType => movingType.code === initialMovingType);
       if (matchingType) {
-        setViewMovingType(matchingType.type);
         setIsMovingType(prev => !prev);
       }
     }
-  }, [initialMovingType, setViewMovingType, setIsMovingType]);
+  }, [initialMovingType, setIsMovingType]);
 
   const handleCheckClick = (movingType: string) => {
     setSelectedMovingType(movingType);
@@ -46,7 +40,6 @@ export default function MovingTypeCheckCard({
           key={movingType.type}
           onClick={() => {
             handleCheckClick(movingType.code);
-            setViewMovingType(movingType.type);
           }}
           className={`flex items-center lg:w-[56rem] lg:h-[8.4rem] md:w-[28rem] md:h-[5.2rem] sm:w-[28rem] sm:h-[5.2rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[1.6rem] md:py-[1.4rem] sm:px-[1.6rem] sm:py-[1.4rem] gap-[0.8rem] lg:mb-[1.6rem] md:mb-[0.8rem] sm:mb-[0.8rem] ${
             selectedMovingType === movingType.code
